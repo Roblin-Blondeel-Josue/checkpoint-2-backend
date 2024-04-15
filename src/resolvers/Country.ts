@@ -52,4 +52,24 @@ export class CountryResolver {
       throw error;
     }
   }
+
+  @Query(() => [Country])
+  async getCountriesByContinent(
+    @Arg("continent") continent: string
+  ): Promise<Country[]> {
+    try {
+      const countries = await Country.find({
+        where: {
+          continent,
+        },
+      });
+      return countries;
+    } catch (error) {
+      console.error(
+        "Une erreur s'est produite lors de la récupération des pays :",
+        error
+      );
+      throw error;
+    }
+  }
 }
